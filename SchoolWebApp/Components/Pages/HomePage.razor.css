@@ -1,0 +1,157 @@
+.viewContainer {
+    height: 100%;
+    width: 100%;
+}
+.scrollView {
+    position: relative;
+    display: block;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+.scrollView::-webkit-scrollbar {
+    width: 15px;
+}
+.scrollView::-webkit-scrollbar-thumb {
+    background-color: #1A1423;
+    border-radius: 5px;
+}
+.fillerItem {
+    height: 15%;
+}
+.taskItem {
+    position: relative;
+    background-color: #1A1423;
+    width: 100%;
+    height: auto;
+    padding: 2%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 30px;
+    font-family: Futura,Trebuchet MS,Arial,sans-serif; 
+}
+.editButton {
+    width: 100%;
+    grid-column: 1;
+    text-align: left;
+    padding: 3%;
+    height: auto;
+    border-radius: 20px;
+    background-color: #3c285a;
+    overflow-wrap: break-word;
+}
+@keyframes buttonHighlight {
+    to {box-shadow: 0px 0px 30px #b3abac7b;
+        background-position: 90% 50%;
+    }
+}
+@keyframes shake {
+    0% {transform: rotate(20deg);}
+    50% {transform: rotate(-20deg);}
+    100% {transform: rotate(20deg);}
+}
+@keyframes clickImageButton {
+    0% {scale: 0.3;}
+    100% {scale: 1.5;
+        opacity: 0;
+    }
+}
+.editButton:hover {
+    background-size: 400% 400%;
+    background-image: linear-gradient(45deg,#1A1423, #3c285a);
+    animation: buttonHighlight 300ms forwards;
+}
+    .editButton:hover .imageButton {
+        opacity: 0.6;
+    }
+.editButton:hover .imageButton:hover {
+    opacity: 1;
+    animation: shake 0.8s infinite;
+}
+.editButton:hover .imageButton:active {
+    animation: clickImageButton 200ms forwards;
+}
+.imageButton {
+    opacity: 0;
+    border-width: 0px;
+    position: absolute;
+    background-color: transparent;
+}
+
+#addTaskButton {
+    background-image:
+    opacity: 1;
+    font-size: 60px;
+    border-width: 0;
+    position: fixed;
+    aspect-ratio: 1/1;
+    min-width: 80px;
+    width: 5%;
+    bottom: 2%;
+    left: 50%;
+    translate: -50% 0%;
+    border-radius: 50%;
+}
+
+#checkmark {
+    scale: 0.7;
+    right: 0px;
+    bottom: 1%;
+}
+#edit {
+    scale: 0.7;
+    left: 0px;
+    bottom: 5%;
+}
+#delete {
+    scale: 0.7;
+    top: -4%;
+    right: 0
+}
+@keyframes clickAnimation {
+    100% {
+        background-position: 0% 0%;
+        scale: 0.9;
+    }
+}
+/* .editButton:active {
+    animation: clickAnimation 500ms forwards ease;
+} */
+/* .checkmarkButton {
+    border-width: 0px;
+    display: block;
+    grid-column: 2;
+    border-radius: 100%;
+    margin: auto;
+    width: 50%;
+    height: 0px;
+    padding-bottom: 50%;
+    background-size: 400% 400%;
+    background-image: linear-gradient(45deg,#1A1423, #3c285a);
+    background-position: 90% 50%;
+}
+
+.checkmarkButton:hover {
+    animation: buttonHighlight 300ms forwards;
+}
+
+.checkmarkButton:active {
+    animation: clickAnimation 500ms forwards ease;
+} */
+.title {
+    width: 100%;
+    color: #DAD0D1;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+.description {
+    width: 100%;
+    color: #DAD0D1;
+    font-size: 1.6em;
+    margin-left: 5%;
+    font-weight: 2;
+}

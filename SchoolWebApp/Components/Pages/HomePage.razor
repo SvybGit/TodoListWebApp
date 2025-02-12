@@ -1,0 +1,56 @@
+﻿@page "/"
+@using SchoolWebApp.Components.Services;
+@inject ITaskService TaskService;
+@rendermode InteractiveServer
+<div class="viewContainer">
+    <div class="scrollView">
+        @foreach (taskItem taskItem in taskList) {
+            <div class="taskItem">
+                <div class="editButton">
+                    <h1 class="title">@taskItem.title</h1>
+                    <p class="description">@taskItem.description</p>
+                    <button type="submit" class="imageButton" id="checkmark">
+                        <img src="images/checkmark.svg" height="100px" width="100px">
+                    </button>
+                    <button type="submit" class="imageButton" id="edit">
+                        <img src="images/edit_icon.svg" height="100px" width="100px">
+                    </button>
+                    <button type="submit" class="imageButton" id="delete" @onclick="() => DeleteTask(taskItem)">
+                        <img src="images/trashcan.svg" height="100px" width="100px">
+                    </button>
+                </div>
+            </div>
+        }
+        <div class="fillerItem"></div>
+        <button class="imageButton" id="addTaskButton" @onclick="() => AddTask()">
+            <img src="/images/checkmark.svg">
+        </button>
+    </div>
+</div>
+@code {
+    public record taskItem(string title, string description);
+    private List<taskItem> taskList { get; set; } = new List<taskItem>();
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Initializing HomePage");
+        taskList = TaskService.GetTaskList();
+    }
+
+    public void TasksChanged()
+    {
+        taskList = TaskService.GetTaskList();
+        StateHasChanged();
+    }
+    public void DeleteTask(taskItem task)
+    {
+        Console.WriteLine("Deleting task: " + task.title);
+        TaskService.Delete(task);
+        TasksChanged();
+    }
+    public void AddTask()
+    {
+        TaskService.Add(new taskItem("Prdel", "Bůček"));
+        TasksChanged();
+    }
+}

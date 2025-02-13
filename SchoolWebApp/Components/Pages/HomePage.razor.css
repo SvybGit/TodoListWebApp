@@ -32,7 +32,6 @@
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 30px;
-    font-family: Futura,Trebuchet MS,Arial,sans-serif; 
 }
 .editButton {
     width: 100%;
@@ -43,6 +42,9 @@
     border-radius: 20px;
     background-color: #3c285a;
     overflow-wrap: break-word;
+}
+.editButton .imageButton {
+    opacity: 0;
 }
 @keyframes buttonHighlight {
     to {box-shadow: 0px 0px 30px #b3abac7b;
@@ -65,36 +67,44 @@
     background-image: linear-gradient(45deg,#1A1423, #3c285a);
     animation: buttonHighlight 300ms forwards;
 }
-    .editButton:hover .imageButton {
-        opacity: 0.6;
-    }
+.editButton:hover .imageButton {
+    opacity: 0.6;
+}
 .editButton:hover .imageButton:hover {
     opacity: 1;
-    animation: shake 0.8s infinite;
-}
-.editButton:hover .imageButton:active {
-    animation: clickImageButton 200ms forwards;
 }
 .imageButton {
-    opacity: 0;
+    opacity: 0.5;
     border-width: 0px;
     position: absolute;
     background-color: transparent;
 }
-
-#addTaskButton {
-    background-image:
+.imageButton:hover {
     opacity: 1;
-    font-size: 60px;
-    border-width: 0;
+    animation: shake 0.8s infinite;
+}
+.imageButton:active {
+    animation: clickImageButton 200ms forwards;
+}
+#addTaskButton {
+    background-color: #6d5da9;
+    opacity: 1;
     position: fixed;
     aspect-ratio: 1/1;
     min-width: 80px;
+    min-height: 80px;
     width: 5%;
     bottom: 2%;
     left: 50%;
     translate: -50% 0%;
     border-radius: 50%;
+}
+
+#addTaskButton:hover {
+    animation: buttonHighlight 0.8s forwards;
+}
+#addTaskButton:active {
+    animation: clickAnimation 0.08s forwards;
 }
 
 #checkmark {
@@ -115,33 +125,10 @@
 @keyframes clickAnimation {
     100% {
         background-position: 0% 0%;
-        scale: 0.9;
+        scale: 0.8;
     }
 }
-/* .editButton:active {
-    animation: clickAnimation 500ms forwards ease;
-} */
-/* .checkmarkButton {
-    border-width: 0px;
-    display: block;
-    grid-column: 2;
-    border-radius: 100%;
-    margin: auto;
-    width: 50%;
-    height: 0px;
-    padding-bottom: 50%;
-    background-size: 400% 400%;
-    background-image: linear-gradient(45deg,#1A1423, #3c285a);
-    background-position: 90% 50%;
-}
 
-.checkmarkButton:hover {
-    animation: buttonHighlight 300ms forwards;
-}
-
-.checkmarkButton:active {
-    animation: clickAnimation 500ms forwards ease;
-} */
 .title {
     width: 100%;
     color: #DAD0D1;
@@ -154,4 +141,63 @@
     font-size: 1.6em;
     margin-left: 5%;
     font-weight: 2;
+}
+@keyframes flyIn {
+    0% {top: 150%;}
+    100% {top: 50%;}
+}
+.addTaskPopup {
+    padding: 3%;
+    border-radius: 10%;
+    outline-color: #1A1423;
+    outline-width: 20px;
+    outline-style: solid;
+    animation: flyIn 1s forwards;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    height: 80%;
+    width: 50%;
+    background-color: #3c285a;
+}
+
+.textInput {
+    outline: 0;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    resize: none;
+    color: #DAD0D1;
+    font-size: 30px;
+    width: 90%;
+    height: 90%;
+    background-color: transparent;
+    border-width: 0;
+}
+.textInput::-webkit-scrollbar {
+        width: 15px;
+}
+.textInput::-webkit-scrollbar-thumb {
+        background-color: #3c285a;
+        border-radius: 5px;
+}
+.textInputContainer {
+    background-color: #1A1423;
+    border-radius: 30px;
+}
+#titleInput {
+    color: #DAD0D1;
+    font-size: 40px;
+}
+#submitTaskButton {
+    position: fixed;
+    bottom:0;
+    right: 0;
+}
+#cancelAddingTaskButton {
+    position: fixed;
+    top: -2%;
+    right: 0;
 }

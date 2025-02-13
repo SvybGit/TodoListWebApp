@@ -2,6 +2,7 @@
 @using SchoolWebApp.Components.Services;
 @inject ITaskService TaskService;
 @rendermode InteractiveServer
+
 <div class="viewContainer">
     <div class="scrollView">
         @foreach (taskItem taskItem in taskList) {
@@ -22,14 +23,36 @@
             </div>
         }
         <div class="fillerItem"></div>
-        <button class="imageButton" id="addTaskButton" @onclick="() => AddTask()">
-            <img src="/images/checkmark.svg">
+        <button class="imageButton" id="addTaskButton" @onclick="() => ShowAddTaskPopupToggle()">
+            <img src="/images/plus_sign.svg" style="height: 70%; width: 70%;">
         </button>
     </div>
 </div>
+@if (showAddTaskPopup)
+{
+    <div style="height: 100%;  width: 100%; background-color:black; position: fixed; top: 0; left:0; opacity: 0.8;">
+    </div>
+    <div class="addTaskPopup">
+        <div class="textInputContainer" style="height: 20%;">
+            <textarea id="titleInput" class="textInput" placeholder="Here goes your new task title" @bind="newTitle" @bind:event="oninput" />
+        </div>
+        <div class="textInputContainer" style="height: 77%; margin-top: 3%;">
+            <textarea class="textInput" placeholder="Here goes your new task description" @bind="newDescription" @bind:event="oninput"/>
+        </div>
+        <button type="submit" class="imageButton" id="cancelAddingTaskButton" @onclick="() => ShowAddTaskPopupToggle()">
+            <img src="images/cancel_button.svg" height="100px" width="100px">
+        </button>
+        <button type="submit" class="imageButton" id="submitTaskButton" @onclick="() => AddTask()">
+            <img src="images/checkmark.svg" height="100px" width="100px">
+        </button>
+    </div>
+}
 @code {
     public record taskItem(string title, string description);
+    public bool showAddTaskPopup = false;
     private List<taskItem> taskList { get; set; } = new List<taskItem>();
+    public string? newTitle;
+    public string? newDescription;
 
     protected override void OnInitialized()
     {
@@ -48,9 +71,15 @@
         TaskService.Delete(task);
         TasksChanged();
     }
+    public void ShowAddTaskPopupToggle() {
+        showAddTaskPopup = !showAddTaskPopup;
+        StateHasChanged();
+    }
     public void AddTask()
     {
-        TaskService.Add(new taskItem("Prdel", "Bůček"));
+        TaskService.Add(new taskItem(newTitle!,newDescription!));
+        taskList = TaskService.GetTaskList();
+        showAddTaskPopup = false;
         TasksChanged();
     }
 }
